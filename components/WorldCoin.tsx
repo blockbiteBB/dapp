@@ -5,12 +5,10 @@ import Image from "next/image";
 import { useContractContext } from "@/contexts/ContractContext";
 import { useAccount } from "wagmi";
 import { AbiCoder } from "ethers";
-import { useRouter } from "next/router";
 
 const WorldcoinVerify = () => {
     const { address } = useAccount();
     const [{ multiChainVerifier }] = useContractContext();
-    const router = useRouter();
 
     const button = { label: "WorldCoin", img: worldCoinLogo, color: "text-black", diabled: false };
 
@@ -35,7 +33,7 @@ const WorldcoinVerify = () => {
                 handleVerify={handleProof}
                 app_id="app_4dbefa59fdf71b9b734938badbf9c23b"
                 // walletConnectProjectId="get_this_from_walletconnect_portal"
-                onSuccess={() => router.push("/")}
+                onSuccess={() => console.log("success")}
             >
                 {({ open }) => (
                     <div

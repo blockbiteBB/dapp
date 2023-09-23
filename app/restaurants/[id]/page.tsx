@@ -1,33 +1,20 @@
 "use client";
 
-import { Connected } from "@/components/Connected";
 import RestaurantDescription from "@/components/Restaurant/RestaurantDescription";
 import RestaurantInfo from "@/components/Restaurant/RestaurantInfo";
 import Cart from "@/components/Restaurant/Cart";
-import { useUser } from "@/contexts/UserContext";
-import { useEffect, useState } from "react";
-import MembershipModal from "@/components/Membership/MembershipModal";
+import { useState } from "react";
 import { restaurants } from "@/app/utils/constants";
 import { Food } from "@/app/utils/types";
 
 const RestaurantPage = ({ params }: { params: { id: string } }) => {
     const { id } = params;
-    const [{ membershipId, isWhitelisted, didApply }] = useUser();
-    const [showModal, setShowModal] = useState(false);
     const [inSelection, setInSelection] = useState<Food | null>(null);
 
     const restaurant = restaurants[Number(id)];
 
-    useEffect(() => {
-        if (membershipId === null) return;
-        if (membershipId === "0") setShowModal(true);
-    }, [membershipId]);
-
     return (
         <>
-            <Connected>
-                <MembershipModal isOpen={showModal} setShowModal={setShowModal} isWhitelisted={isWhitelisted} didApply={didApply} />
-            </Connected>
             <div className="px-5 pt-11 font-chillax md:px-11">
                 <RestaurantDescription
                     info={{
