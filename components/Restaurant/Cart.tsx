@@ -1,3 +1,4 @@
+import useContract from "@/app/hooks/useContract";
 import { detailIcons } from "@/app/utils/constants";
 import { useResaurant } from "@/contexts/RestaurantContext";
 
@@ -7,6 +8,7 @@ interface CartProps {
 
 const Cart = ({ name }: CartProps) => {
     const [{ order }] = useResaurant();
+    const { createOrder } = useContract();
 
     const totalPrice = order.reduce((accumulatedPrice, currentItem) => {
         return accumulatedPrice + currentItem.price * currentItem.quantity;
@@ -54,7 +56,10 @@ const Cart = ({ name }: CartProps) => {
                 </div>
             </div>
             <div className="w-full">
-                <div className="mt-12 flex items-center justify-center rounded-3xl bg-[#FF914D] px-6 py-4 text-lg font-semibold text-black">
+                <div
+                    onClick={() => createOrder("my address", totalPrice.toString())}
+                    className="mt-12 flex items-center justify-center rounded-3xl bg-[#FF914D] px-6 py-4 text-lg font-semibold text-black"
+                >
                     <div className="">Start Order</div>
                 </div>
             </div>

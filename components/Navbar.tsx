@@ -16,7 +16,7 @@ import { updateUser } from "@/app/utils/constants";
 const Navbar = () => {
     const [{ userAddress, userPVK, userWallet }, dispatchUser] = useUserContext();
     const { address } = useAccount();
-    const [{ contract }, dispatchContract] = useContractContext();
+    const [_, dispatchContract] = useContractContext();
     const [openMenu, setOpenMenu] = useState<boolean>(false);
     const [lensTokenId, setLensTokenId] = useState(null);
     const realAddress = userAddress.length > 0 ? userAddress : address;
@@ -36,7 +36,6 @@ const Navbar = () => {
     }, [existingUser]);
 
     useEffect(() => {
-        const provider = new ethers.JsonRpcProvider("https://rpc-mumbai.maticvigil.com");
         if (userWallet)
             dispatchContract({
                 type: "UPDATE_CONTRACT",
@@ -53,8 +52,6 @@ const Navbar = () => {
             erc20Token: new ethers.Contract(erc20Address, erc20Abi, userWallet),
         });
     }, [userWallet]);
-
-    console.log("contract", contract);
 
     useEffect(() => {
         if (userPVK) {
