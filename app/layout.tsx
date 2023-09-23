@@ -6,6 +6,8 @@ import { Providers } from "./Providers";
 import RestaurantContextProvider from "@/contexts/RestaurantContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import UserContextProvider from "@/contexts/UserContext";
+import ContractContextProvider from "@/contexts/ContractContext";
 
 export const metadata: Metadata = {
     title: "BlockBite Dapp",
@@ -18,9 +20,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body className="bg-white text-brand-app-black">
                 <Providers>
                     <RestaurantContextProvider>
-                        <Navbar />
-                        {children}
-                        <Footer />
+                        <UserContextProvider>
+                            <ContractContextProvider>
+                                <Navbar />
+                                {children}
+                                <Footer />
+                            </ContractContextProvider>
+                        </UserContextProvider>
                     </RestaurantContextProvider>
                 </Providers>
             </body>

@@ -1,8 +1,6 @@
 import { State } from "./store";
 
-export type Action =
-    | { type: "UPDATE_LENS"; lens: State["lens"] }
-    | { type: "UPDATE_MULTICHAIN_VERIFIER"; multiChainVerifier: State["multiChainVerifier"] };
+export type Action = { type: "UPDATE_LENS"; lens: State["lens"] } | { type: "UPDATE_CONTRACT"; contract: State["contract"] };
 
 export const reducer = (state: State, action: Action): State => {
     switch (action.type) {
@@ -11,10 +9,10 @@ export const reducer = (state: State, action: Action): State => {
                 ...state,
                 lens: action.lens,
             };
-        case "UPDATE_MULTICHAIN_VERIFIER":
+        case "UPDATE_CONTRACT":
             return {
                 ...state,
-                multiChainVerifier: action.multiChainVerifier,
+                contract: action.contract,
             };
 
         default:

@@ -1,9 +1,9 @@
 export interface State {
-    multiChainVerifier: any;
+    contract: any;
     lens: any;
 }
 
 export const initialState: State = {
-    multiChainVerifier: undefined,
+    contract: undefined,
     lens: undefined,
 };
