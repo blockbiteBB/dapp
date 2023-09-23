@@ -8,6 +8,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import UserContextProvider from "@/contexts/UserContext";
 import ContractContextProvider from "@/contexts/ContractContext";
+import ModalContextProvider from "@/contexts/ModalContext";
+import MobileModal from "@/components/_shared/MobileModal";
 
 export const metadata: Metadata = {
     title: "BlockBite Dapp",
@@ -19,15 +21,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="en" className={`${chillaxFont.variable} ${montserratFont.variable} ${sourceCodeProFont.variable}`}>
             <body className="bg-white text-brand-app-black">
                 <Providers>
-                    <RestaurantContextProvider>
-                        <UserContextProvider>
-                            <ContractContextProvider>
-                                <Navbar />
-                                {children}
-                                <Footer />
-                            </ContractContextProvider>
-                        </UserContextProvider>
-                    </RestaurantContextProvider>
+                    <ModalContextProvider>
+                        <RestaurantContextProvider>
+                            <UserContextProvider>
+                                <ContractContextProvider>
+                                    <Navbar />
+                                    {children}
+                                    <Footer />
+                                    <MobileModal />
+                                </ContractContextProvider>
+                            </UserContextProvider>
+                        </RestaurantContextProvider>
+                    </ModalContextProvider>
                 </Providers>
             </body>
         </html>

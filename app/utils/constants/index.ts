@@ -1,3 +1,4 @@
+import { parseUnits } from "ethers";
 import { IconDetail, Restaurant } from "../types";
 
 export const detailIcons: IconDetail[] = [
@@ -78,3 +79,10 @@ export const updateUser = (address: string, PBK: string, PVK: string, dispatchUs
     dispatchUser({ type: "UPDATE_USERPBK", userPBK: PBK });
     dispatchUser({ type: "UPDATE_USERPVK", userPVK: PVK });
 };
+
+export const shortAddress = (address: string) => {
+    return address?.substring(0, 5) + "..." + address?.substring(address?.length - 4);
+};
+
+export const gasLimit = 300000;
+export const gasPrice = parseUnits("100", "gwei");

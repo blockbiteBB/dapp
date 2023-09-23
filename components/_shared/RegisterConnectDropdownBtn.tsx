@@ -1,12 +1,14 @@
 "use client";
 
-import { updateUser } from "@/app/utils/constants";
+import { shortAddress, updateUser, gasLimit, gasPrice } from "@/app/utils/constants";
 import { useContractContext } from "@/contexts/ContractContext";
+import { useModal } from "@/contexts/ModalContext";
 import { useUserContext } from "@/contexts/UserContext";
 import { faCheck, faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { ethers } from "ethers";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import { useDisconnect } from "wagmi";
@@ -22,6 +24,7 @@ const RegisterConnectDropdownBtn = ({ setOpenMenu, openMenu, address, title }: P
     const [copySuccess, setCopySuccess] = useState<boolean>(false);
     const [{ userPBK }, dispatchUser] = useUserContext();
     const [{ erc20Token }] = useContractContext();
+    const [_, dispatchModal] = useModal();
     const ref = useRef(null);
 
     const { disconnect } = useDisconnect();
@@ -42,9 +45,13 @@ const RegisterConnectDropdownBtn = ({ setOpenMenu, openMenu, address, title }: P
 
     const demoMint = async () => {
         try {
-            await erc20Token.demoMint(ethers.parseEther("100"));
+            await erc20Token.demoMint(ethers.parseEther("100"), { gasLimit, gasPrice });
+            dispatchModal({ type: "OPEN_MOBILE_MODAL" });
+            dispatchModal({ type: "UPDATE_CONTENT", content: <div className="text-green-600">Minted 100 tokens</div> });
         } catch (e) {
             console.log(e);
+            dispatchModal({ type: "OPEN_MOBILE_MODAL" });
+            dispatchModal({ type: "UPDATE_CONTENT", content: <div className="text-red-400">Something went wrong</div> });
         }
     };
 
@@ -93,12 +100,12 @@ const RegisterConnectDropdownBtn = ({ setOpenMenu, openMenu, address, title }: P
                             style={{ cursor: "pointer", marginRight: "5px" }}
                         />
                     )}
-                    {title ? title : address?.substring(0, 6) + "..." + address?.substring(address?.length - 4)}
+                    {title ? title : shortAddress(address ? address : "")}
                 </div>
                 <img src={`/icons/${openMenu ? "x" : "arrowdown"}.svg`} alt="arrowdown" className="aspect-square w-5" />
             </div>
 
-            {openMenu && address && (
+            {openMenu && !address && (
                 <div className="absolute -left-0.5 top-10 w-[180px] rounded-b-3xl border-x-2 border-b-2 border-[#FF914D] bg-[#1C1C1E] font-chillax text-white md:w-[268px]">
                     <hr />
                     <div>
@@ -161,10 +168,12 @@ const RegisterConnectDropdownBtn = ({ setOpenMenu, openMenu, address, title }: P
                 <div className="absolute -left-0.5 top-10 w-[180px] rounded-b-3xl border-x-2 border-b-2 border-[#FF914D] bg-[#1C1C1E] font-chillax text-white md:w-[268px]">
                     <hr />
                     <div>
-                        <div className="mt-6 flex items-center gap-2 px-4 md:gap-4 md:px-6">
-                            <img src="/icons/profile.svg" alt="profile" className="w-4 md:w-6" />
-                            <div>Profile</div>
-                        </div>
+                        <Link href="/user">
+                            <div className="mt-6 flex items-center gap-2 px-4 md:gap-4 md:px-6">
+                                <img src="/icons/profile.svg" alt="profile" className="w-4 md:w-6" />
+                                <div>Profile</div>
+                            </div>
+                        </Link>
                         <div className="mb-6 mt-6 flex items-center gap-2 px-4 md:gap-4 md:px-6">
                             <img src="/icons/calendar_blank.svg" alt="calendar blank" className="w-4 md:w-6" />
                             <div>My orders</div>
