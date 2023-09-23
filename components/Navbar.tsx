@@ -1,3 +1,5 @@
+"use client";
+
 import { CustomConnectButton } from "@/components/CustomConnectButton";
 import { useContractContext } from "@/contexts/ContractContext";
 import { useUserContext } from "@/contexts/UserContext";
@@ -8,7 +10,7 @@ import { useEffect, useState } from "react";
 import contractABIEtherEats from "@/lib/abis/mainAbi.json";
 
 const Navbar = () => {
-    const [{ address, userPVK, userWallet }, dispatchUser] = useUserContext();
+    const [{ address, userWallet }, dispatchUser] = useUserContext();
     const [{ lens }, dispatchContract] = useContractContext();
     const [lensTokenId, setLensTokenId] = useState(null);
 
@@ -24,23 +26,25 @@ const Navbar = () => {
         dispatchUser({ type: "UPDATE_USERPVK", userPVK: PVK });
     };
 
+    const createWallet = async () => {
+        const wallet = ethers.Wallet.createRandom();
+        const { address, privateKey, publicKey } = wallet;
+        updateUser(address, publicKey, privateKey);
+        localStorage.setItem(
+            "user",
+            JSON.stringify({
+                address: address,
+                userPBK: publicKey,
+                userPVK: privateKey,
+            })
+        );
+    };
+
     useEffect(() => {
         if (existingUser) {
             const user = JSON.parse(existingUser);
             const { address, userPBK, userPVK } = user;
             updateUser(address, userPBK, userPVK);
-        } else {
-            const wallet = ethers.Wallet.createRandom();
-            const { address, privateKey, publicKey } = wallet;
-            updateUser(address, publicKey, privateKey);
-            localStorage.setItem(
-                "user",
-                JSON.stringify({
-                    address: address,
-                    userPBK: publicKey,
-                    userPVK: privateKey,
-                })
-            );
         }
     }, [existingUser]);
 
@@ -83,7 +87,12 @@ const Navbar = () => {
                     <div className="font-chillax text-xl font-bold tracking-wider xl:text-2xl">blockbite</div>
                 </div>
             </Link>
-            <CustomConnectButton />
+            {!userWallet && (
+                <button className="rounded-3xl bg-[#FF914D] px-6 py-2 font-chillax font-semibold" onClick={createWallet} type="button">
+                    Register
+                </button>
+            )}
+            {/* <CustomConnectButton /> */}
         </div>
     );
 };

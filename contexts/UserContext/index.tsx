@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useContext, useReducer } from "react";
 import { UserAction, reducer } from "./reducer";
 import { State, initialState } from "./store";
