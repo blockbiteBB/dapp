@@ -72,3 +72,9 @@ export const restaurants: Restaurant[] = [
         ],
     },
 ];
+
+export const updateUser = (address: string, PBK: string, PVK: string, dispatchUser: any) => {
+    dispatchUser({ type: "UPDATE_ADDRESS", address: address });
+    dispatchUser({ type: "UPDATE_USERPBK", userPBK: PBK });
+    dispatchUser({ type: "UPDATE_USERPVK", userPVK: PVK });
+};

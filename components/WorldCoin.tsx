@@ -8,14 +8,14 @@ import { AbiCoder } from "ethers";
 
 const WorldcoinVerify = () => {
     const { address } = useAccount();
-    const [{ multiChainVerifier }] = useContractContext();
+    const [{ contract }] = useContractContext();
 
     const button = { label: "WorldCoin", img: worldCoinLogo, color: "text-black", diabled: false };
 
     const handleProof = async (result: ISuccessResult) => {
         try {
             const unpackedProof = AbiCoder.defaultAbiCoder().decode(["uint256[8]"], result.proof)[0];
-            const tx = await multiChainVerifier.registerWithWorldcoin(address, result.merkle_root, result.nullifier_hash, unpackedProof, 137);
+            const tx = await contract.registerWithWorldcoin(address, result.merkle_root, result.nullifier_hash, unpackedProof, 137);
             const recipte = await tx.wait();
             if (recipte.status == 1) {
                 console.log("verified");
