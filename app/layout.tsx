@@ -3,7 +3,6 @@ import "@rainbow-me/rainbowkit/styles.css";
 import type { Metadata } from "next";
 import { chillaxFont, montserratFont, sourceCodeProFont } from "./utils/constants/font";
 import { Providers } from "./Providers";
-import MembershipContextProvider from "@/contexts/UserContext";
 import RestaurantContextProvider from "@/contexts/RestaurantContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -19,11 +18,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body className="bg-white text-brand-app-black">
                 <Providers>
                     <RestaurantContextProvider>
-                        <MembershipContextProvider>
-                            <Navbar />
-                            {children}
-                            <Footer />
-                        </MembershipContextProvider>
+                        <Navbar />
+                        {children}
+                        <Footer />
                     </RestaurantContextProvider>
                 </Providers>
             </body>
