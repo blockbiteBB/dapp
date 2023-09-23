@@ -1,14 +1,14 @@
 import { Wallet } from "ethers";
 
 export interface State {
-    address: string;
+    userAddress: string;
     userPVK: string;
     userPBK: string;
     userWallet: Wallet | undefined;
 }
 
 export const initialState: State = {
-    address: "",
+    userAddress: "",
     userPVK: "",
     userPBK: "",
     userWallet: undefined,

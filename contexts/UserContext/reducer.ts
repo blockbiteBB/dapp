@@ -1,7 +1,7 @@
 import { State } from "./store";
 
 export type UserAction =
-    | { type: "UPDATE_ADDRESS"; address: State["address"] }
+    | { type: "UPDATE_ADDRESS"; address: State["userAddress"] }
     | { type: "UPDATE_USERPBK"; userPBK: State["userPBK"] }
     | { type: "UPDATE_USERPVK"; userPVK: State["userPVK"] }
     | { type: "UPDATE_USERWALLET"; userWallet: State["userWallet"] };
@@ -9,7 +9,7 @@ export type UserAction =
 export const reducer = (state: State, action: UserAction): State => {
     switch (action.type) {
         case "UPDATE_ADDRESS":
-            return { ...state, address: action.address };
+            return { ...state, userAddress: action.address };
 
         case "UPDATE_USERPBK":
             return { ...state, userPBK: action.userPBK };
