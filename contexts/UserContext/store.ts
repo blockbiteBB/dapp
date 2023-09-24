@@ -1,10 +1,13 @@
 import { Wallet } from "ethers";
+import { Order } from "../RestaurantContext/store";
 
 export interface State {
     userAddress: string;
     userPVK: string;
     userPBK: string;
     userWallet: Wallet | undefined;
+    isDeliver: boolean;
+    orders: Order[];
 }
 
 export const initialState: State = {
@@ -12,4 +15,6 @@ export const initialState: State = {
     userPVK: "",
     userPBK: "",
     userWallet: undefined,
+    isDeliver: false,
+    orders: [],
 };

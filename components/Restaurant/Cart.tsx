@@ -57,7 +57,7 @@ const Cart = ({ name }: CartProps) => {
             </div>
             <div className="w-full">
                 <div
-                    onClick={() => createOrder("my address", totalPrice.toString())}
+                    onClick={() => createOrder(JSON.stringify(order), totalPrice.toString())}
                     className="mt-12 flex items-center justify-center rounded-3xl bg-[#FF914D] px-6 py-4 text-lg font-semibold text-black"
                 >
                     <div className="">Start Order</div>

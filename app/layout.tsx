@@ -12,7 +12,7 @@ import ModalContextProvider from "@/contexts/ModalContext";
 import MobileModal from "@/components/_shared/MobileModal";
 
 export const metadata: Metadata = {
-    title: "BlockBite Dapp",
+    title: "EtherEats Dapp",
     description: "",
 };
 

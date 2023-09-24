@@ -84,5 +84,5 @@ export const shortAddress = (address: string) => {
     return address?.substring(0, 5) + "..." + address?.substring(address?.length - 4);
 };
 
-export const gasLimit = 300000;
+export const gasLimit = 1000000;
 export const gasPrice = parseUnits("100", "gwei");

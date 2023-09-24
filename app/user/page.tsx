@@ -26,18 +26,18 @@ const UserPage = () => {
 
     return (
         <div className="px-3 md:px-11 xl:px-32">
-            <div className="my-14 text-2xl">
+            <div className="my-20 text-2xl">
                 Welcome <span className="font-bold">{shortAddress(userAddress)}</span>!!
             </div>
             <div className="w-full rounded-[24px] bg-[#FFF8DC] px-5 py-8 md:px-11 xl:w-3/5">
-                <div className="mt-4">We'll ensure that all your data would remain private and encrypted.</div>
+                <div className="">We&apos;ll ensure that all your data would remain private and encrypted.</div>
                 <div className="mt-4 text-lg font-semibold">Join to become a delevery driver:</div>
 
                 <div>(You have to buy governane tokens and stake them)</div>
 
                 <div
                     onClick={demoMint}
-                    className="mt-4 w-fit cursor-pointer rounded-full bg-[#FF914D] px-5 py-2 text-center text-base font-semibold text-brand-app-black lg:text-lg"
+                    className="mt-16 w-fit cursor-pointer rounded-full bg-[#FF914D] px-5 py-2 text-center text-base font-semibold text-brand-app-black lg:text-lg"
                 >
                     Buy governance token
                 </div>

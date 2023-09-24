@@ -1,6 +1,7 @@
 "use client";
 
 import { shortAddress, updateUser, gasLimit, gasPrice } from "@/app/utils/constants";
+import { fetchOrders, fetchUser } from "@/app/utils/constants/query";
 import { useContractContext } from "@/contexts/ContractContext";
 import { useModal } from "@/contexts/ModalContext";
 import { useUserContext } from "@/contexts/UserContext";
@@ -22,7 +23,7 @@ interface Props {
 
 const RegisterConnectDropdownBtn = ({ setOpenMenu, openMenu, address, title }: Props) => {
     const [copySuccess, setCopySuccess] = useState<boolean>(false);
-    const [{ userPBK }, dispatchUser] = useUserContext();
+    const [{ userPBK, isDeliver, userAddress }, dispatchUser] = useUserContext();
     const [{ erc20Token }] = useContractContext();
     const [_, dispatchModal] = useModal();
     const ref = useRef(null);
@@ -63,7 +64,6 @@ const RegisterConnectDropdownBtn = ({ setOpenMenu, openMenu, address, title }: P
     const copyToClipboard = (e: any, account: any) => {
         e.stopPropagation();
 
-        console.log("account", account);
         navigator.clipboard
             .writeText(account)
             .then(() => {
@@ -174,10 +174,12 @@ const RegisterConnectDropdownBtn = ({ setOpenMenu, openMenu, address, title }: P
                                 <div>Profile</div>
                             </div>
                         </Link>
-                        <div className="mb-6 mt-6 flex items-center gap-2 px-4 md:gap-4 md:px-6">
-                            <img src="/icons/calendar_blank.svg" alt="calendar blank" className="w-4 md:w-6" />
-                            <div>My orders</div>
-                        </div>
+                        <Link href="/orders">
+                            <div className="mb-6 mt-6 flex items-center gap-2 px-4 md:gap-4 md:px-6">
+                                <img src="/icons/calendar_blank.svg" alt="calendar blank" className="w-4 md:w-6" />
+                                <div>{isDeliver ? "Open Orders" : "My orders"}</div>
+                            </div>
+                        </Link>
                     </div>
                     <hr />
                     <div>
