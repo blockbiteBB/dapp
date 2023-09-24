@@ -28,10 +28,10 @@ const WorldcoinVerify = () => {
     return (
         <>
             <IDKitWidget
-                action="app_4dbefa59fdf71b9b734938badbf9c23b"
+                action="app_cf7b0a01ee70399870f809549d821f10"
                 signal={solidityEncode(["address"], [userAddress])}
                 handleVerify={handleProof}
-                app_id="app_4dbefa59fdf71b9b734938badbf9c23b"
+                app_id="app_cf7b0a01ee70399870f809549d821f10"
                 // walletConnectProjectId="get_this_from_walletconnect_portal"
                 onSuccess={() => console.log("success")}
             >

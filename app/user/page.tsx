@@ -34,9 +34,9 @@ const UserPage = () => {
             </div>
             <div className="w-full rounded-[24px] bg-[#FFF8DC] px-5 py-8 md:px-11 xl:w-3/5">
                 <div className="">We&apos;ll ensure that all your data would remain private and encrypted.</div>
-                <div className="mt-4 text-lg font-semibold">Join to become a delevery driver:</div>
+                <div className="mt-4 text-lg font-semibold">Join to become a delivery driver:</div>
 
-                <div>(You have to buy governane tokens and stake them)</div>
+                <div>(You have to buy governance tokens and stake them)</div>
 
                 <div
                     onClick={demoMint}
