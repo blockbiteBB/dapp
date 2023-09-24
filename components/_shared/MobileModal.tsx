@@ -25,7 +25,7 @@ const MobileModal = () => {
 
     return (
         <div
-            className={`absolute bottom-0 left-0 z-10 w-full transform rounded-t-2xl bg-white p-5 py-10 shadow-custom-shadow transition-all duration-300 lg:hidden ${
+            className={`absolute bottom-0 left-0 z-10 w-full transform rounded-t-2xl bg-white p-5 py-10 shadow-custom-shadow transition-all duration-300 ${
                 mobileModalOpen ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
             }`}
         >
