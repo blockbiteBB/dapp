@@ -5,12 +5,15 @@ import { shortAddress, gasLimit, gasPrice } from "../utils/constants";
 import { useContractContext } from "@/contexts/ContractContext";
 import useContract from "../hooks/useContract";
 import { useModal } from "@/contexts/ModalContext";
+import { useState } from "react";
+import WorldcoinVerify from "@/components/WorldCoin";
 
 const UserPage = () => {
     const [{ userAddress }] = useUserContext();
     const [{ govToken }] = useContractContext();
     const [, dispatchModal] = useModal();
     const { stake } = useContract();
+    const [openWorldCoin, setOpenWorldCoin] = useState<boolean>(false);
 
     const demoMint = async () => {
         try {
@@ -47,6 +50,7 @@ const UserPage = () => {
                 >
                     Stake and join
                 </div>
+                <WorldcoinVerify />
             </div>
         </div>
     );

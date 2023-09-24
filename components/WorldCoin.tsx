@@ -1,21 +1,21 @@
 import { IDKitWidget, solidityEncode } from "@worldcoin/idkit";
 import type { ISuccessResult } from "@worldcoin/idkit";
-import worldCoinLogo from "/public/img/logos/worldcoin-logo.jpeg";
+import worldCoinLogo from "/public/worldcoin-logo.png";
 import Image from "next/image";
 import { useContractContext } from "@/contexts/ContractContext";
-import { useAccount } from "wagmi";
 import { AbiCoder } from "ethers";
+import { useUserContext } from "@/contexts/UserContext";
 
 const WorldcoinVerify = () => {
-    const { address } = useAccount();
+    const [{ userAddress }] = useUserContext();
     const [{ contract }] = useContractContext();
 
-    const button = { label: "WorldCoin", img: worldCoinLogo, color: "text-black", diabled: false };
+    const button = { label: "Verify with WorldCoin", img: worldCoinLogo, color: "text-black", diabled: false };
 
     const handleProof = async (result: ISuccessResult) => {
         try {
             const unpackedProof = AbiCoder.defaultAbiCoder().decode(["uint256[8]"], result.proof)[0];
-            const tx = await contract.registerWithWorldcoin(address, result.merkle_root, result.nullifier_hash, unpackedProof, 137);
+            const tx = await contract.registerWithWorldcoin(userAddress, result.merkle_root, result.nullifier_hash, unpackedProof, 137);
             const recipte = await tx.wait();
             if (recipte.status == 1) {
                 console.log("verified");
@@ -29,7 +29,7 @@ const WorldcoinVerify = () => {
         <>
             <IDKitWidget
                 action="app_4dbefa59fdf71b9b734938badbf9c23b"
-                signal={solidityEncode(["address"], [address])}
+                signal={solidityEncode(["address"], [userAddress])}
                 handleVerify={handleProof}
                 app_id="app_4dbefa59fdf71b9b734938badbf9c23b"
                 // walletConnectProjectId="get_this_from_walletconnect_portal"
@@ -38,18 +38,16 @@ const WorldcoinVerify = () => {
                 {({ open }) => (
                     <div
                         onClick={open}
-                        className={`flex ${button.color} ${
+                        className={`mt-4 flex ${button.color} ${
                             button.diabled && "cursor-not-allowed bg-gray-600 text-white"
-                        } w-[400px] cursor-pointer items-center gap-5 rounded-lg shadow-md dark:bg-white`}
+                        } w-fit cursor-pointer items-center gap-5 rounded-full bg-black px-10 shadow-md dark:bg-white`}
                     >
                         {button.img && (
                             <div className="relative h-[50px] w-[50px]">
-                                <Image src={button.img} alt="logo" fill className="rounded-lg" />
+                                <Image src={button.img} alt="logo" objectFit="cover" fill className="rounded-lg" />
                             </div>
                         )}
-                        <div className={`w-[150px] rounded py-3 text-lg font-semibold ${button.label === "No ID" && "ml-[70px]"}`}>
-                            {button.label}
-                        </div>
+                        <div className={`w-fit rounded py-3 text-lg font-semibold ${button.label === "No ID" && "ml-10"}`}>{button.label}</div>
                     </div>
                 )}
             </IDKitWidget>
