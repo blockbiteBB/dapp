@@ -7,7 +7,7 @@ export interface State {
     userPBK: string;
     userWallet: Wallet | undefined;
     isDeliver: boolean;
-    orders: Order[];
+    orders: any[];
 }
 
 export const initialState: State = {

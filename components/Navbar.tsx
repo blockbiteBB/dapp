@@ -79,7 +79,7 @@ const Navbar = () => {
     useEffect(() => {
         if (userAddress) {
             const fetch = async () => {
-                const orders = await fetchOrders(userAddress);
+                const { orders } = await fetchOrders(userAddress);
                 dispatchUser({ type: "UPDATE_ORDERS", orders });
             };
 
